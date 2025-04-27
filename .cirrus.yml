@@ -14,14 +14,7 @@ sync_repos:
     - curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
     - chmod a+x /usr/local/bin/repo
 
-  # Install Git LFS
-  setup_git_lfs:
-    - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-    - sudo apt-get install -y git-lfs
-    - git lfs install
-
   clone_script:
-    - git lfs install  # Ensure LFS is initialized correctly
     - mkdir evox
     - cd evox
     # Repo sync will happen only once or if cache is invalidated
@@ -56,7 +49,6 @@ task:
     - chmod a+x /usr/local/bin/repo
 
   clone_script:
-    - git lfs install  # Ensure LFS is initialized correctly
     - mkdir evox
     - cd evox
     # Initialize repo and sync, skip if cached
@@ -72,8 +64,10 @@ task:
 
   build_script:
     - cd evox
+    - pwd
+    - ls build/make/core/envsetup.mk
     - source build/envsetup.sh
-    - lunch evolution_rmx3371-bp1a-user
+    - lunch lineage_rmx3371-bp1a-user
     - mka evolution -j$(nproc)
 
   artifacts:
