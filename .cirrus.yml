@@ -5,9 +5,9 @@ env:
 task:
   name: Build Evolution X for RMX3371
   container:
-    image: apon77/aosp:cirrus
-    cpu: 24
-    memory: 120G
+    image: ubuntu:20.04
+    cpu: 8
+    memory: 32G
 
   environment:
     CCACHE_DIR: /tmp/ccache
