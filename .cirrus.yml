@@ -1,8 +1,7 @@
-# Task 1: Sync Repositories (This job will run only once or when cache is invalidated)
-sync_repos:
-  name: Sync Repositories
+task:
+  name: Build Evolution X for RMX3371
   container:
-    image: ubuntu:20.04
+    image: ubuntu:24.04
     cpu: 8
     memory: 32G
 
