@@ -1,7 +1,7 @@
 task:
   name: Build Evolution X for RMX3371
   container:
-    image: ubuntu:24.04
+    image: ubuntu:20.04
     cpu: 8
     memory: 32G
 
