@@ -70,6 +70,7 @@ task:
     - cd evox
     - pwd
     - ls build/make/core/envsetup.mk
+    - ls
     - source build/envsetup.sh
     - lunch lineage_rmx3371-bp1a-user
     - mka evolution -j$(nproc)
