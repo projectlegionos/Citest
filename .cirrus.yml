@@ -3,6 +3,8 @@ sync_repos:
   name: Sync Repositories
   container:
     image: ubuntu:20.04
+    cpu: 8
+    memory: 32G
 
   environment:
     CCACHE_DIR: /tmp/ccache
@@ -37,6 +39,8 @@ task:
   name: Build Evolution X for RMX3371
   container:
     image: ubuntu:20.04
+    cpu: 8
+    memory: 32G
 
   environment:
     CCACHE_DIR: /tmp/ccache
