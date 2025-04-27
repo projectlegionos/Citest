@@ -15,44 +15,9 @@ sync_repos:
     - DEBIAN_FRONTEND=noninteractive apt install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev openjdk-8-jdk git-lfs python-is-python3 wget
     - curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
     - chmod a+x /usr/local/bin/repo
+    - git clone https://github.com/akhilnarang/scripts && cd scripts && bash setup/android_build_env.sh
 
-  clone_script:
-    - mkdir evox
-    - cd evox
-    # Repo sync will happen only once or if cache is invalidated
-    - repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b vic --git-lfs
-    - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune -j8
-    - rm -rf .repo/project-objects
-    - rm -rf .repo/projects
-    - rm -rf .repo/manifests.git
-    - git clone -b 6.0 https://github.com/legionos-devices/android_device_realme_rmx3371.git device/realme/rmx3371
-    - git clone -b lineage-22.2 https://github.com/legionos-devices/android_vendor_realme_rmx3371.git vendor/realme/rmx3371
-    - git clone -b fifteen https://github.com/legionos-devices/android_kernel_realme_sm8250.git kernel/realme/sm8250
-    - git clone -b 6.0 https://github.com/legionos-devices/hardware_oplus.git hardware/oplus
-
-  # Cache the repo directory to avoid syncing from scratch in future runs
-  cache:
-    - evox/.repo
-
-# Task 2: Build Evolution X (This job runs after repo sync finishes)
-task:
-  name: Build Evolution X for RMX3371
-  container:
-    image: ubuntu:20.04
-    cpu: 8
-    memory: 32G
-
-  environment:
-    CCACHE_DIR: /tmp/ccache
-    USE_CCACHE: 1
-
-  install_script:
-    - apt update
-    - DEBIAN_FRONTEND=noninteractive apt install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev openjdk-8-jdk git-lfs python-is-python3 wget
-    - curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo
-    - chmod a+x /usr/local/bin/repo
-
-  clone_script:
+  all_build_script:
     - mkdir evox
     - cd evox
     # Initialize repo and sync, skip if cached
@@ -65,9 +30,6 @@ task:
     - git clone -b lineage-22.2 https://github.com/legionos-devices/android_vendor_realme_rmx3371.git vendor/realme/rmx3371
     - git clone -b fifteen https://github.com/legionos-devices/android_kernel_realme_sm8250.git kernel/realme/sm8250
     - git clone -b 6.0 https://github.com/legionos-devices/hardware_oplus.git hardware/oplus
-
-  build_script:
-    - cd evox
     - pwd
     - ls build/make/core/envsetup.mk
     - ls
