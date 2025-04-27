@@ -20,7 +20,7 @@ task:
     - cd evox
     # Initialize repo and sync, skip if cached
     - repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b vic --git-lfs
-    - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune -j8
+    - repo sync -c --no-clone-bundle --no-tags --force-sync --optimized-fetch --prune -j8
     - rm -rf .repo/project-objects
     - rm -rf .repo/projects
     - rm -rf .repo/manifests.git
